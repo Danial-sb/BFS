@@ -44,11 +44,29 @@ class Graph:
                     self.queue.put(v)
 
         return self.bfs_traversal_output
+        
+
+    def dfs(self, graph, start):
+        stack = [] 
+        stack.append(start)
+        self.visited = set()  
+        self.visited.add(start)
+
+        while stack:
+            vertex = stack.pop()
+            nodes = graph[vertex]
+            for w in nodes:
+                if w not in self.visited:
+                    stack.append(w)
+                    self.visited.add(w)
+            return vertex
 
 
 
 
 if __name__ == "__main__":
+
     g = Graph()
     print(g.bfs())
     print(g.level)
+    print(g.dfs(adjacency_list, '5'))
