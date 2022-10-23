@@ -1,2 +1,2 @@
 # BFS
-Implementation of Breadth First Search
+Implementation of Breadth First Search & Depth First search
