@@ -1,14 +1,13 @@
 from pickle import NONE
 from queue import Queue
 
-adjacency_list = {
-  '5' : ['3','7'],
-  '3' : ['2', '4'],
-  '7' : ['8'],
-  '2' : [],
-  '4' : ['8'],
-  '8' : []
-}
+adjacency_list = {"A": ["B", "C"],
+          "B": ["A", "C", "D"],
+          "C": ["A", "B", "D", "E"],
+          "D": ["B", "C", "E", "F"],
+          "E": ["C", "D"],
+          "F": ["D"]
+        }
 
 class Graph:
 
@@ -20,23 +19,22 @@ class Graph:
         self.bfs_traversal_output = []
 
 
-    def bfs(self):
+    def bfs(self, graph, start):
 
-        for node in adjacency_list.keys():
+        for node in graph.keys():
             self.visited[node] = False
             self.level[node] = -1
             self.parent[node] = NONE
         
-        root = '5'
-        self.visited[root] = True
-        self.level[root] = 0
-        self.queue.put(root)
+        self.visited[start] = True
+        self.level[start] = 0
+        self.queue.put(start)
 
         while not self.queue.empty():
             u = self.queue.get()
             self.bfs_traversal_output.append(u)
 
-            for v in adjacency_list[u]:
+            for v in graph[u]:
                 if not self.visited[v]:
                     self.visited[v] = True
                     self.parent[v] = u
@@ -59,7 +57,7 @@ class Graph:
                 if w not in self.visited:
                     stack.append(w)
                     self.visited.add(w)
-            return vertex
+            print(vertex)
 
 
 
@@ -67,6 +65,6 @@ class Graph:
 if __name__ == "__main__":
 
     g = Graph()
-    print(g.bfs())
+    print("bfs traversal: " + str(g.bfs(adjacency_list, "A")))
     print(g.level)
-    print(g.dfs(adjacency_list, '5'))
+    g.dfs(adjacency_list, "A")
